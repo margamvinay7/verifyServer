@@ -17,7 +17,7 @@ export const fetchTweetsService = async (username, limit) => {
   try {
     const response = await axios.request(options);
 
-    console.log("fetch tweets", response);
+    // console.log("fetch tweets", response);
 
     return response.data.results.map((post) => ({
       tweetId: post.tweet_id,
@@ -25,7 +25,7 @@ export const fetchTweetsService = async (username, limit) => {
       createdAt: post.creation_date,
     }));
   } catch (error) {
-    console.error("Error fetching tweets:", error.message);
+    // console.error("Error fetching tweets:", error.message);
     throw new Error("Failed to fetch tweets.");
   }
 };
@@ -44,21 +44,21 @@ export const extractClaimsService = async (content) => {
 
     const claimsText = response.choices[0].message.content.trim();
 
-    console.log(
-      "extract claim",
-      claimsText,
-      claimsText
-        .split("\n")
-        .filter((claim) => claim.trim()) // Remove empty lines
-        .map((line) => {
-          const [claim, category] = line.split("|", 2);
-          return {
-            text: claim.trim(),
-            category: category ? category.trim() : "Other",
-          };
-        })
-        .filter((claim) => claim.category !== "Other")
-    );
+    // console.log(
+    //   "extract claim",
+    //   claimsText,
+    //   claimsText
+    //     .split("\n")
+    //     .filter((claim) => claim.trim()) // Remove empty lines
+    //     .map((line) => {
+    //       const [claim, category] = line.split("|", 2);
+    //       return {
+    //         text: claim.trim(),
+    //         category: category ? category.trim() : "Other",
+    //       };
+    //     })
+    //     .filter((claim) => claim.category !== "Other")
+    // );
 
     const claims = claimsText
       .split("\n")
@@ -72,7 +72,7 @@ export const extractClaimsService = async (content) => {
       })
       .filter((claim) => claim.category !== "Other");
 
-    console.log("Extracted claims:", claims);
+    // console.log("Extracted claims:", claims);
     return claims;
   } catch (error) {
     console.error("Error extracting claims:", error.message);
@@ -96,7 +96,7 @@ export const isDuplicateClaimService = async (newClaim, existingClaims) => {
     const isDuplicate =
       response.choices[0].message.content.trim().toLowerCase() === "yes";
 
-    console.log("is duplicate:", isDuplicate, response.choices[0].message);
+    // console.log("is duplicate:", isDuplicate, response.choices[0].message);
     return isDuplicate;
   } catch (error) {
     console.error("Error checking duplicate claims:", error.message);
@@ -130,7 +130,7 @@ export const verifyClaimService = async (claim, journals = []) => {
 
     const result = response.choices[0].message.content.trim();
 
-    console.log("verify claim", result, response.choices[0].message);
+    // console.log("verify claim", result, response.choices[0].message);
     return {
       verificationStatus: result?.verificationStatus,
       trustScore: result?.trustScore,
@@ -160,7 +160,7 @@ export const createClaimService = async (
     aiAnalysis: verification.aiAnalysis,
     source: `https://x.com/${username}/status/${tweetId}`,
   });
-  console.log("create claim", newClaim);
+  // console.log("create claim", newClaim);
   return newClaim;
 };
 

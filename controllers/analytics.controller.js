@@ -5,7 +5,7 @@ export const getAnalytics = async (req, res) => {
     const analyticsData = await getAnalyticsService();
     res.status(200).json({ success: true, data: analyticsData });
   } catch (error) {
-    console.error("Error fetching analytics data:", error);
+    // console.error("Error fetching analytics data:", error);
     res.status(500).json({ success: false, message: error.message });
   }
 };

@@ -20,7 +20,7 @@ export const fetchAndCreateInfluencerService = async (username) => {
   };
   try {
     const response = await axios.request(options);
-    console.log("fetch influencers", response);
+    // console.log("fetch influencers", response);
     const data = response.data;
 
     const influencer = {
@@ -60,7 +60,7 @@ export const fetchInfluencersService = async () => {
 
   try {
     const response = await axios.request(options);
-    console.log("fetch influencers", response);
+    // console.log("fetch influencers", response);
     const influencers = response.data.map((influencer) => ({
       name: influencer.name,
       userId: influencer.user_id,
@@ -91,7 +91,7 @@ export const assignTrustScoreService = async (influencerId) => {
 
     const trustScore = claims.length > 0 ? totalScore / claims.length : 0;
     await Influencer.findByIdAndUpdate(influencerId, { trustScore });
-    console.log("trust", trustScore);
+    // console.log("trust", trustScore);
     return trustScore;
   } catch (error) {
     console.error("Error assigning trust score:", error.message);
